@@ -15,7 +15,7 @@ namespace HR.LeaveManagement.Application.DTOs.LeaveType.Validators
 
             RuleFor(p => p.DefaultDays)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
-                .ExclusiveBetween(0, 100).WithMessage("{PropertyName} must be between 0 and 100.");
+                .ExclusiveBetween(0, 100).WithMessage("{PropertyName} must be between 1 and 99.");
         }
     }
 }
