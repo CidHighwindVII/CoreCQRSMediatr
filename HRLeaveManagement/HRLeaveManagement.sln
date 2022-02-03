@@ -20,12 +20,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR.LeaveManagement.Application", "HR.LeaveManagement.Application\HR.LeaveManagement.Application.csproj", "{F09D0D4B-6A42-440F-B7F7-666757D5E937}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{97F4A4D1-A39B-4F33-9CAD-DC1B16B4B3C6}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR.LeaveManagement.Infrastructure", "HR.LeaveManagement.Infrastructure\HR.LeaveManagement.Infrastructure.csproj", "{4CF9E2C2-62EC-4023-AD82-B6FFD7DB939C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR.LeaveManagement.Persistence", "HR.LeaveManagement.Persistence\HR.LeaveManagement.Persistence.csproj", "{65DCFB48-3B16-4D07-8D3E-387966618D6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR.LeaveManagement.Api", "HR.LeaveManagement.Api\HR.LeaveManagement.Api.csproj", "{979FAA14-6BBC-4DF0-B0F5-75D0DB3AE8B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR.LeaveManagement.Application.UnitTests", "HR.LeaveManagement.Application.UnitTests\HR.LeaveManagement.Application.UnitTests.csproj", "{A7F94E71-FB80-42B2-B9EF-FA9C1D83117B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +58,10 @@ Global
 		{979FAA14-6BBC-4DF0-B0F5-75D0DB3AE8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{979FAA14-6BBC-4DF0-B0F5-75D0DB3AE8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{979FAA14-6BBC-4DF0-B0F5-75D0DB3AE8B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7F94E71-FB80-42B2-B9EF-FA9C1D83117B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F94E71-FB80-42B2-B9EF-FA9C1D83117B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7F94E71-FB80-42B2-B9EF-FA9C1D83117B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7F94E71-FB80-42B2-B9EF-FA9C1D83117B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +76,7 @@ Global
 		{4CF9E2C2-62EC-4023-AD82-B6FFD7DB939C} = {363AE8DC-4058-4796-B54E-2A11219D1B6F}
 		{65DCFB48-3B16-4D07-8D3E-387966618D6B} = {363AE8DC-4058-4796-B54E-2A11219D1B6F}
 		{979FAA14-6BBC-4DF0-B0F5-75D0DB3AE8B7} = {D56E6FE5-D67A-4727-ACA1-5263A819C05C}
+		{A7F94E71-FB80-42B2-B9EF-FA9C1D83117B} = {29828F9D-0B64-46D5-855D-383580E33FEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED7653D9-3393-461F-91CC-CD4C9EB254BE}
