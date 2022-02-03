@@ -6,11 +6,11 @@ using System.Text;
 
 namespace HR.LeaveManagement.Application.DTOs.LeaveRequest.Validators
 {
-    public class UpdateLeaveRequestValidator : AbstractValidator<UpdateLeaveRequestDto>
+    public class UpdateLeaveRequestDtoValidator : AbstractValidator<UpdateLeaveRequestDto>
     {
         private readonly ILeaveRequestRepository _leaveRequestRepository;
 
-        public UpdateLeaveRequestValidator(ILeaveRequestRepository leaveRequestRepository)
+        public UpdateLeaveRequestDtoValidator(ILeaveRequestRepository leaveRequestRepository)
         {
             _leaveRequestRepository = leaveRequestRepository;
 
