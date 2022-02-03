@@ -1,14 +1,17 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.DTOs.LeaveType;
-using HR.LeaveManagement.Application.DTOs.Profiles;
 using HR.LeaveManagement.Application.Features.LeaveTypes.Handlers.Queries;
 using HR.LeaveManagement.Application.Features.LeaveTypes.Requests.Queries;
+using HR.LeaveManagement.Application.Profiles;
 using HR.LeaveManagement.Application.UnitTests.Mocks;
+using HR.LeaveManagement.Domain;
 using Moq;
 using Shouldly;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -19,12 +22,11 @@ namespace HR.LeaveManagement.Application.UnitTests.LeaveTypes.Queries
     {
         private readonly IMapper _mapper;
         private readonly Mock<ILeaveTypeRepository> _mockRepo;
-
         public GetLeaveTypeListRequestHandlerTests()
         {
             _mockRepo = MockLeaveTypeRepository.GetLeaveTypeRepository();
 
-            var mapperConfig = new MapperConfiguration(c =>
+            var mapperConfig = new MapperConfiguration(c => 
             {
                 c.AddProfile<MappingProfile>();
             });
@@ -40,7 +42,8 @@ namespace HR.LeaveManagement.Application.UnitTests.LeaveTypes.Queries
             var result = await handler.Handle(new GetLeaveTypeListRequest(), CancellationToken.None);
 
             result.ShouldBeOfType<List<LeaveTypeDto>>();
-            result.Count.ShouldBe(2);
+
+            result.Count.ShouldBe(3);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.DTOs.LeaveType;
-using HR.LeaveManagement.Application.DTOs.Profiles;
 using HR.LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands;
 using HR.LeaveManagement.Application.Features.LeaveTypes.Requests.Commands;
 using HR.LeaveManagement.Application.UnitTests.Mocks;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 using Shouldly;
 using Xunit;
 using HR.LeaveManagement.Application.Responses;
+using HR.LeaveManagement.Application.Profiles;
 
 namespace HR.LeaveManagement.Application.UnitTests.LeaveTypes.Queries
 {
@@ -49,11 +49,11 @@ namespace HR.LeaveManagement.Application.UnitTests.LeaveTypes.Queries
         {            
             var createLeaveTypeCommand = new CreateLeaveTypeCommand
             {
-                CreateLeaveTypeDto = _CreateLeaveTypeDto
+                LeaveTypeDto = _CreateLeaveTypeDto
             };
 
             var result = await _handler.Handle(createLeaveTypeCommand, CancellationToken.None);
-            var leaveTypes = await _mockRepo.Object.GetAllAsync();
+            var leaveTypes = await _mockRepo.Object.GetAll();
 
             result.ShouldBeOfType<BaseCommandResponse>();
             result.Success.ShouldBe(true);
@@ -67,11 +67,11 @@ namespace HR.LeaveManagement.Application.UnitTests.LeaveTypes.Queries
 
             var createLeaveTypeCommand = new CreateLeaveTypeCommand
             {
-                CreateLeaveTypeDto = _CreateLeaveTypeDto
+                LeaveTypeDto = _CreateLeaveTypeDto
             };
 
             var result = await _handler.Handle(createLeaveTypeCommand, CancellationToken.None);
-            var leaveTypes = await _mockRepo.Object.GetAllAsync();
+            var leaveTypes = await _mockRepo.Object.GetAll();
 
             result.ShouldBeOfType<BaseCommandResponse>();
             result.Success.ShouldBe(false);

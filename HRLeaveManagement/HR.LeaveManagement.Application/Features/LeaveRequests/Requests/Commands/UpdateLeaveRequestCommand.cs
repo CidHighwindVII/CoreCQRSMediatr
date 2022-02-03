@@ -1,4 +1,5 @@
 ﻿using HR.LeaveManagement.Application.DTOs.LeaveRequest;
+using HR.LeaveManagement.Application.DTOs.LeaveType;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,26 +9,10 @@ namespace HR.LeaveManagement.Application.Features.LeaveRequests.Requests.Command
 {
     public class UpdateLeaveRequestCommand : IRequest<Unit>
     {
-        public int Id 
-        { 
-            get
-            {
-                if(UpdateLeaveRequestDto != null)
-                {
-                    return UpdateLeaveRequestDto.Id;
-                }
+        public int Id { get; set; }
 
-                if(ChangeLeaveRequestApprovalDto != null)
-                {
-                    return ChangeLeaveRequestApprovalDto.Id;
-                }
+        public UpdateLeaveRequestDto LeaveRequestDto { get; set; }
 
-                return -1;
-            }
-        }
-
-        public UpdateLeaveRequestDto UpdateLeaveRequestDto { get; set; }
-        
         public ChangeLeaveRequestApprovalDto ChangeLeaveRequestApprovalDto { get; set; }
     }
 }

@@ -21,13 +21,12 @@ namespace HR.LeaveManagement.Application.Features.LeaveTypes.Handlers.Queries
         public GetLeaveTypeListRequestHandler(ILeaveTypeRepository leaveTypeRepository, IMapper mapper)
         {
             _leaveTypeRepository = leaveTypeRepository;
-            _mapper = mapper;          
+            _mapper = mapper;
         }
 
-        public  async Task<List<LeaveTypeDto>> Handle(GetLeaveTypeListRequest request, CancellationToken cancellationToken)
+        public async Task<List<LeaveTypeDto>> Handle(GetLeaveTypeListRequest request, CancellationToken cancellationToken)
         {
-            var leaveTypes = await _leaveTypeRepository.GetAllAsync();
-
+            var leaveTypes = await _leaveTypeRepository.GetAll();
             return _mapper.Map<List<LeaveTypeDto>>(leaveTypes);
         }
     }

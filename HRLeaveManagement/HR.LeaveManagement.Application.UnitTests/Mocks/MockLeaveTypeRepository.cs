@@ -26,19 +26,25 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
                     Id = 2,
                     DefaultDays = 15,
                     Name = "Test Sick"
+                },
+                new LeaveType
+                {
+                    Id = 3,
+                    DefaultDays = 15,
+                    Name = "Test Maternity"
                 }
             };
 
             var mockRepo = new Mock<ILeaveTypeRepository>();
 
             //// Task<T> GetAsync(int id);
-            mockRepo.Setup(r => r.GetAsync(It.IsAny<int>())).ReturnsAsync((int row) => leaveTypes.FirstOrDefault(x => x.Id == row));
+            mockRepo.Setup(r => r.Get(It.IsAny<int>())).ReturnsAsync((int row) => leaveTypes.FirstOrDefault(x => x.Id == row));
 
             //// Task<IReadOnlyList<T>> GetAllAsync();
-            mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(leaveTypes);
+            mockRepo.Setup(r => r.GetAll()).ReturnsAsync(leaveTypes);
 
             //// Task<T> AddAsync(T entity);
-            mockRepo.Setup(r => r.AddAsync(It.IsAny<LeaveType>())).ReturnsAsync((LeaveType leaveType) =>
+            mockRepo.Setup(r => r.Add(It.IsAny<LeaveType>())).ReturnsAsync((LeaveType leaveType) =>
             {
                 leaveTypes.Add(leaveType);
                 return leaveType;
@@ -51,23 +57,23 @@ namespace HR.LeaveManagement.Application.UnitTests.Mocks
             });
 
             //// Task UpdateAsync(T entity);
-            mockRepo.Setup(r => r.UpdateAsync(It.IsAny<LeaveType>())).Returns((LeaveType leaveType) =>
-            {                
+            mockRepo.Setup(r => r.Update(It.IsAny<LeaveType>())).Returns((LeaveType leaveType) =>
+            {
                 return Task.Factory.StartNew(() =>
                 {
                     var index = leaveTypes.IndexOf(leaveType);
                     leaveTypes[index] = leaveType;
-                }); 
+                });
             });
 
             //// Task DeleteAsync(T entity);
-            mockRepo.Setup(r => r.DeleteAsync(It.IsAny<LeaveType>())).Returns((LeaveType leaveType) =>
+            mockRepo.Setup(r => r.Delete(It.IsAny<LeaveType>())).Returns((LeaveType leaveType) =>
             {
                 return Task.Factory.StartNew(() =>
                 {
                     var leaveTypeInList = leaveTypes.First(x => x.Id == leaveType.Id);
 
-                    if(leaveTypeInList != null)
+                    if (leaveTypeInList != null)
                     {
                         leaveTypes.Remove(leaveTypeInList);
                     }

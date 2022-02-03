@@ -15,7 +15,7 @@ namespace HR.LeaveManagement.Persistence.Configurations.Entities
                 new LeaveType
                 {
                     Id = 1,
-                    DefaultDays = 10,
+                    DefaultDays = 10, 
                     Name = "Vacation"
                 },
                 new LeaveType

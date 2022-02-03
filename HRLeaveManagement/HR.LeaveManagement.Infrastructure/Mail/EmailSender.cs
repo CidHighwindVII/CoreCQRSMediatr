@@ -13,11 +13,6 @@ namespace HR.LeaveManagement.Infrastructure.Mail
     public class EmailSender : IEmailSender
     {
         private EmailSettings _emailSettings { get; }
-
-        /// <summary>
-        /// Gets the EmailSettings part of the configuration file
-        /// </summary>
-        /// <param name="emailSettings"></param>
         public EmailSender(IOptions<EmailSettings> emailSettings)
         {
             _emailSettings = emailSettings.Value;
@@ -30,7 +25,7 @@ namespace HR.LeaveManagement.Infrastructure.Mail
             var from = new EmailAddress
             {
                 Email = _emailSettings.FromAddress,
-                Name = _emailSettings.FromName,
+                Name = _emailSettings.FromName
             };
 
             var message = MailHelper.CreateSingleEmail(from, to, email.Subject, email.Body, email.Body);

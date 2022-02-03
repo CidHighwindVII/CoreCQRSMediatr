@@ -1,10 +1,13 @@
 ﻿using HR.LeaveManagement.Application.Contracts.Infrastructure;
 using HR.LeaveManagement.Application.Models;
+using HR.LeaveManagement.Application.Profiles;
 using HR.LeaveManagement.Infrastructure.Mail;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace HR.LeaveManagement.Infrastructure

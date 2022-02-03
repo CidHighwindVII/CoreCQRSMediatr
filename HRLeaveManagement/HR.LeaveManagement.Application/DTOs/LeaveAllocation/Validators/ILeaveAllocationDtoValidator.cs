@@ -26,7 +26,7 @@ namespace HR.LeaveManagement.Application.DTOs.LeaveAllocation.Validators
                 .MustAsync(async (id, cancelationToken) =>
                 {
                     return !(await _leaveAllocationRepository.Exists(id));
-                }).WithMessage("{PropertyName} does not exist.");            
+                }).WithMessage("{PropertyName} does not exist.");
         }
     }
 }

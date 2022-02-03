@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using HR.LeaveManagement.Application.Profiles;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace HR.LeaveManagement.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
-            return services; 
+            return services;
         }
     }
 }

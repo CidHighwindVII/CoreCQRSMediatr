@@ -11,11 +11,13 @@ namespace HR.LeaveManagement.Application.DTOs.LeaveType.Validators
         {
             RuleFor(p => p.Name)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
-                .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
+                .NotNull()
+                .MaximumLength(50).WithMessage("{PropertyName} must not exceed {ComparisonValue} characters.");
 
             RuleFor(p => p.DefaultDays)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
-                .ExclusiveBetween(0, 100).WithMessage("{PropertyName} must be between 1 and 99.");
+                .GreaterThan(0).WithMessage("{PropertyName} must be at least 1.")
+                .LessThan(100).WithMessage("{PropertyName} must be less than {ComparisonValue}.");
         }
     }
 }

@@ -3,15 +3,15 @@ using HR.LeaveManagement.Application.DTOs.LeaveType.Validators;
 using HR.LeaveManagement.Application.Exceptions;
 using HR.LeaveManagement.Application.Features.LeaveTypes.Requests.Commands;
 using HR.LeaveManagement.Application.Contracts.Persistence;
-using HR.LeaveManagement.Application.Responses;
 using HR.LeaveManagement.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HR.LeaveManagement.Application.Responses;
+using System.Linq;
 
 namespace HR.LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands
 {
@@ -30,9 +30,9 @@ namespace HR.LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands
         {
             var response = new BaseCommandResponse();
             var validator = new CreateLeaveTypeDtoValidator();
-            var validationResult = await validator.ValidateAsync(request.CreateLeaveTypeDto);
+            var validationResult = await validator.ValidateAsync(request.LeaveTypeDto);
 
-            if (!validationResult.IsValid)
+            if (validationResult.IsValid == false)
             {
                 response.Success = false;
                 response.Message = "Creation Failed";
@@ -40,7 +40,9 @@ namespace HR.LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands
             }
             else
             {
-                var leaveType = await _leaveTypeRepository.AddAsync(_mapper.Map<LeaveType>(request.CreateLeaveTypeDto));
+                var leaveType = _mapper.Map<LeaveType>(request.LeaveTypeDto);
+
+                leaveType = await _leaveTypeRepository.Add(leaveType);
 
                 response.Success = true;
                 response.Message = "Creation Successful";

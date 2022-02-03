@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HR.LeaveManagement.Application.DTOs;
 using HR.LeaveManagement.Application.DTOs.LeaveType;
+using HR.LeaveManagement.Application.Features.LeaveRequests.Requests.Queries;
 using HR.LeaveManagement.Application.Features.LeaveTypes.Requests;
 using HR.LeaveManagement.Application.Features.LeaveTypes.Requests.Queries;
 using HR.LeaveManagement.Application.Contracts.Persistence;
@@ -23,11 +24,9 @@ namespace HR.LeaveManagement.Application.Features.LeaveTypes.Handlers.Queries
             _leaveTypeRepository = leaveTypeRepository;
             _mapper = mapper;
         }
-
         public async Task<LeaveTypeDto> Handle(GetLeaveTypeDetailRequest request, CancellationToken cancellationToken)
         {
-            var leaveType = await _leaveTypeRepository.GetAsync(request.Id);
-
+            var leaveType = await _leaveTypeRepository.Get(request.Id);
             return _mapper.Map<LeaveTypeDto>(leaveType);
         }
     }

@@ -11,24 +11,16 @@ namespace HR.LeaveManagement.Persistence
 {
     public class LeaveManagementDbContext : DbContext
     {
-        public LeaveManagementDbContext(DbContextOptions<LeaveManagementDbContext> options) : base(options)
+        public LeaveManagementDbContext(DbContextOptions<LeaveManagementDbContext> options)
+            : base(options)
         {
         }
 
-        /// <summary>
-        /// Method executed when the database is being generated
-        /// </summary>
-        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(LeaveManagementDbContext).Assembly);            
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(LeaveManagementDbContext).Assembly);
         }
 
-        /// <summary>
-        /// Every time we try to save changes it will go throught here
-        /// </summary>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach (var entry in ChangeTracker.Entries<BaseDomainEntity>())
