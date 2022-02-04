@@ -32,12 +32,16 @@ namespace HR.LeaveManagement.Application.Features.LeaveRequests.Handlers.Command
         {
             var leaveRequest = await _unitOfWork.LeaveRequestRepository.Get(request.Id);
 
+            if (leaveRequest is null)
+                throw new NotFoundException(nameof(leaveRequest), request.LeaveRequestDto.Id);
+
             if (request.LeaveRequestDto != null)
             {
                 var validator = new UpdateLeaveRequestDtoValidator(_unitOfWork.LeaveRequestRepository);
                 var validationResult = await validator.ValidateAsync(request.LeaveRequestDto);
                 if (!validationResult.IsValid)
                     throw new ValidationException(validationResult);
+
                 _mapper.Map(request.LeaveRequestDto, leaveRequest);
 
                 await _unitOfWork.LeaveRequestRepository.Update(leaveRequest);

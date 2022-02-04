@@ -37,6 +37,9 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocations.Handlers.Comm
 
             var leaveAllocation = await _unitOfWork.LeaveAllocationRepository.Get(request.LeaveAllocationDto.Id);
 
+            if(leaveAllocation is null)
+                throw new NotFoundException(nameof(leaveAllocation), request.LeaveAllocationDto.Id);
+
             _mapper.Map(request.LeaveAllocationDto, leaveAllocation);
 
             await _unitOfWork.LeaveAllocationRepository.Update(leaveAllocation);

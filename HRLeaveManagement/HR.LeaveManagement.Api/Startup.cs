@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HR.LeaveManagement.Infrastructure;
+using HR.LeaveManagement.Api.Middleware;
 
 namespace HR.LeaveManagement.Api
 {
@@ -56,6 +57,8 @@ namespace HR.LeaveManagement.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthentication();
 
