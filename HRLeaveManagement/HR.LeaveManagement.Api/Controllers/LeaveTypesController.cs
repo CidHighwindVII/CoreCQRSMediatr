@@ -15,17 +15,12 @@ using System.Threading.Tasks;
 
 namespace HR.LeaveManagement.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
-    public class LeaveTypesController : ControllerBase
+    public class LeaveTypesController : BaseController
     {
-        private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LeaveTypesController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+        public LeaveTypesController(IMediator mediator, IHttpContextAccessor httpContextAccessor) : base(mediator)
         {
-            _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -33,7 +28,7 @@ namespace HR.LeaveManagement.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<LeaveTypeDto>>> Get()
         {
-            var leaveTypes = await _mediator.Send(new GetLeaveTypeListRequest());
+            var leaveTypes = await Mediator.Send(new GetLeaveTypeListRequest());
             return Ok(leaveTypes);
         }
 
@@ -41,7 +36,7 @@ namespace HR.LeaveManagement.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<LeaveTypeDto>> Get(int id)
         {
-            var leaveType = await _mediator.Send(new GetLeaveTypeDetailRequest { Id = id });
+            var leaveType = await Mediator.Send(new GetLeaveTypeDetailRequest { Id = id });
             return Ok(leaveType);
         }
 
@@ -54,7 +49,7 @@ namespace HR.LeaveManagement.Api.Controllers
         {
             var user = _httpContextAccessor.HttpContext.User;
             var command = new CreateLeaveTypeCommand { LeaveTypeDto = leaveType };
-            var response = await _mediator.Send(command);
+            var response = await Mediator.Send(command);
             return Ok(response);
         }
 
@@ -67,7 +62,7 @@ namespace HR.LeaveManagement.Api.Controllers
         public async Task<ActionResult> Put([FromBody] LeaveTypeDto leaveType)
         {
             var command = new UpdateLeaveTypeCommand { LeaveTypeDto = leaveType };
-            await _mediator.Send(command);
+            await Mediator.Send(command);
             return NoContent();
         }
 
@@ -80,7 +75,7 @@ namespace HR.LeaveManagement.Api.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var command = new DeleteLeaveTypeCommand { Id = id };
-            await _mediator.Send(command);
+            await Mediator.Send(command);
             return NoContent();
         }
     }

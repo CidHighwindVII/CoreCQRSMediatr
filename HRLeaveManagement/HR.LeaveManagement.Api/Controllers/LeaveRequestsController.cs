@@ -14,23 +14,17 @@ using System.Threading.Tasks;
 
 namespace HR.LeaveManagement.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
-    public class LeaveRequestsController : ControllerBase
+    public class LeaveRequestsController : BaseController
     {
-        private readonly IMediator _mediator;
-
-        public LeaveRequestsController(IMediator mediator)
+        public LeaveRequestsController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         // GET: api/<LeaveRequestsController>
         [HttpGet]
         public async Task<ActionResult<List<LeaveRequestListDto>>> Get(bool isLoggedInUser = false)
         {
-            var leaveRequests = await _mediator.Send(new GetLeaveRequestListRequest() { IsLoggedInUser = isLoggedInUser });
+            var leaveRequests = await Mediator.Send(new GetLeaveRequestListRequest() { IsLoggedInUser = isLoggedInUser });
             return Ok(leaveRequests);
         }
 
@@ -38,7 +32,7 @@ namespace HR.LeaveManagement.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<LeaveRequestDto>> Get(int id)
         {
-            var leaveRequest = await _mediator.Send(new GetLeaveRequestDetailRequest { Id = id });
+            var leaveRequest = await Mediator.Send(new GetLeaveRequestDetailRequest { Id = id });
             return Ok(leaveRequest);
         }
 
@@ -47,7 +41,7 @@ namespace HR.LeaveManagement.Api.Controllers
         public async Task<ActionResult<BaseCommandResponse>> Post([FromBody] CreateLeaveRequestDto leaveRequest)
         {
             var command = new CreateLeaveRequestCommand { LeaveRequestDto = leaveRequest };
-            var repsonse = await _mediator.Send(command);
+            var repsonse = await Mediator.Send(command);
             return Ok(repsonse);
         }
 
@@ -56,7 +50,7 @@ namespace HR.LeaveManagement.Api.Controllers
         public async Task<ActionResult> Put(int id, [FromBody] UpdateLeaveRequestDto leaveRequest)
         {
             var command = new UpdateLeaveRequestCommand { Id = id, LeaveRequestDto = leaveRequest };
-            await _mediator.Send(command);
+            await Mediator.Send(command);
             return NoContent();
         }
 
@@ -65,7 +59,7 @@ namespace HR.LeaveManagement.Api.Controllers
         public async Task<ActionResult> ChangeApproval(int id, [FromBody] ChangeLeaveRequestApprovalDto changeLeaveRequestApproval)
         {
             var command = new UpdateLeaveRequestCommand { Id = id, ChangeLeaveRequestApprovalDto = changeLeaveRequestApproval };
-            await _mediator.Send(command);
+            await Mediator.Send(command);
             return NoContent();
         }
 
@@ -74,7 +68,7 @@ namespace HR.LeaveManagement.Api.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var command = new DeleteLeaveRequestCommand { Id = id };
-            await _mediator.Send(command);
+            await Mediator.Send(command);
             return NoContent();
         }
     }

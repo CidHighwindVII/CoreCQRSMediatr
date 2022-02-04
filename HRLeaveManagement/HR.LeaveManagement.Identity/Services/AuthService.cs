@@ -95,13 +95,15 @@ namespace HR.LeaveManagement.Identity.Services
             }
             else
             {
-                throw new Exception($"Email {request.Email } already exists.");
+                throw new Exception($"Email {request.Email} already exists.");
             }
         }
 
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
         {
+            //// "Bits" of information about the user
             var userClaims = await _userManager.GetClaimsAsync(user);
+            //// "Administrator", "Employee", "etc"
             var roles = await _userManager.GetRolesAsync(user);
 
             var roleClaims = new List<Claim>();
@@ -113,7 +115,7 @@ namespace HR.LeaveManagement.Identity.Services
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName), //// Subject
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(CustomClaimTypes.Uid, user.Id)
@@ -121,7 +123,10 @@ namespace HR.LeaveManagement.Identity.Services
             .Union(userClaims)
             .Union(roleClaims);
 
+            //// Create private/public key
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+
+            //// Sign token
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
             var jwtSecurityToken = new JwtSecurityToken(
@@ -130,6 +135,7 @@ namespace HR.LeaveManagement.Identity.Services
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
                 signingCredentials: signingCredentials);
+
             return jwtSecurityToken;
         }
     }
