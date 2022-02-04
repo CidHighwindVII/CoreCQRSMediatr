@@ -20,13 +20,13 @@ namespace HR.LeaveManagement.Application.UnitTests.LeaveTypes.Queries
     public class CreateLeaveTypeCommandHandlerTests
     {
         private readonly IMapper _mapper;
-        private readonly Mock<ILeaveTypeRepository> _mockRepo;
+        private readonly Mock<IUnitOfWork> _mockRepo;
         private readonly CreateLeaveTypeDto _CreateLeaveTypeDto;
         private readonly CreateLeaveTypeCommandHandler _handler;
 
         public CreateLeaveTypeCommandHandlerTests()
         {
-            _mockRepo = MockLeaveTypeRepository.GetLeaveTypeRepository();
+            _mockRepo = MockUnitOfWork.GetUnitOfWork();
 
             var mapperConfig = new MapperConfiguration(c =>
             {
@@ -53,11 +53,11 @@ namespace HR.LeaveManagement.Application.UnitTests.LeaveTypes.Queries
             };
 
             var result = await _handler.Handle(createLeaveTypeCommand, CancellationToken.None);
-            var leaveTypes = await _mockRepo.Object.GetAll();
+            var leaveTypes = await _mockRepo.Object.LeaveTypeRepository.GetAll();
 
             result.ShouldBeOfType<BaseCommandResponse>();
             result.Success.ShouldBe(true);
-            leaveTypes.Count.ShouldBe(3);
+            leaveTypes.Count.ShouldBe(4);
         }
 
         [Fact]
@@ -71,11 +71,11 @@ namespace HR.LeaveManagement.Application.UnitTests.LeaveTypes.Queries
             };
 
             var result = await _handler.Handle(createLeaveTypeCommand, CancellationToken.None);
-            var leaveTypes = await _mockRepo.Object.GetAll();
+            var leaveTypes = await _mockRepo.Object.LeaveTypeRepository.GetAll();
 
             result.ShouldBeOfType<BaseCommandResponse>();
             result.Success.ShouldBe(false);
-            leaveTypes.Count.ShouldBe(2);
+            leaveTypes.Count.ShouldBe(3);
         }
     }
 }
